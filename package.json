@@ -1,0 +1,30 @@
+{
+  "name": "react-native",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Crossplatform react native app",
+  "main": "index.js",
+  "scripts": {
+    "start": "react-native start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "babel-eslint": "4.1.6",
+    "eslint": "1.10.3",
+    "eslint-config-airbnb": "2.1.1",
+    "eslint-plugin-react": "3.12.0",
+    "react-native": "0.19.0",
+    "react-native-swipeout": "2.0.12",
+    "redux": "3.3.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manxhong/ReactNative.git"
+  },
+  "author": "Man Hong Lee",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/manxhong/ReactNative/issues"
+  },
+  "homepage": "https://github.com/manxhong/ReactNative#readme"
+}
