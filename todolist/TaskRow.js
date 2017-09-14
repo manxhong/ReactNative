@@ -1,17 +1,32 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 
 class TaskRow extends React.Component{
+
+    onDonePressed(){
+        this.props.onDone(this.props.todo);
+    }
+    
     render(){
         return(
             <View style={styles.container}>
-                <Text style={styles.label}>{this.props.todo.task}</Text>
+                <Text 
+                style={styles.label}
+                >{this.props.todo.task}</Text>
+
+                <TouchableHighlight
+                    style={styles.doneButton}
+                    onPress = {this.onDonePressed.bind(this)}
+                >
+                    <Text>Done</Text>
+                </TouchableHighlight>
             </View>
         );
     }
 }
 
 TaskRow.propTypes = {
+    onDone: React.PropTypes.func.isRequired,
     todo: React.PropTypes.shape({
         task: React.PropTypes.string.isRequired,
     }).isRequired,
@@ -35,6 +50,12 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '300',
     },
+
+    doneButton: {
+        borderRadius: 5,
+        backgroundColor: '#EAEAEA',
+        padding: 5,
+    }
 });
 
 export default TaskRow;
