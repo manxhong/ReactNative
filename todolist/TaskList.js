@@ -14,6 +14,15 @@ class TaskList extends React.Component {
             dataSource: ds.cloneWithRows(props.todos)
         };
     }
+
+    componentWillReceiveProps(nextProps) {
+        const dataSource = this
+            .state
+            .dataSource
+            .cloneWithRows(nextProps.todos);
+
+        this.setState({dataSource});
+    }
     
     renderRow(todo){
         return (
@@ -38,6 +47,8 @@ class TaskList extends React.Component {
                     Add one
                 </Text>
             </TouchableHighlight>
+
+            
         </View>
         );    
     }

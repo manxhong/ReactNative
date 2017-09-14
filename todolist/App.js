@@ -1,6 +1,5 @@
 import React from "react";
 import TaskList from "./TaskList";
-import {Text} from "react-native";
 import {Navigator} from 'react-native-deprecated-custom-components';
 import TaskForm from "./TaskForm";
 
@@ -26,11 +25,27 @@ export default class App extends React.Component {
     });
   }
 
+  onCancel(){
+    this.nav.pop();
+  }
+
+  onAdd(task){
+    console.log('a task was added: ', task);
+    this.state.todos.push({
+      task: task,
+    });
+    this.setState({todos: this.state.todos}),
+    this.nav.pop();
+  }
+
   renderScene(route, nav) {
     switch (route.name) {
       case "taskform":
         return (
-          <TaskForm />
+          <TaskForm 
+            onAdd={this.onAdd.bind(this)}
+            onCancel={this.onCancel.bind(this)}
+          />
         );
       default:
         return (
