@@ -2,21 +2,16 @@ import React from "react";
 import TaskList from "./TaskList";
 import {Navigator} from 'react-native-deprecated-custom-components';
 import TaskForm from "./TaskForm";
+import store from './todoStore';
 
 class Todo extends React.Component {
   constructor(props, context) {
     super(props, context);
+    this.state = store.getState();
 
-    this.state = {
-      todos: [
-        {
-          task: 'Learn React Native'
-        },
-        {
-          task: 'Learn Redux'
-        }
-      ]
-    };
+    store.subscribe(()=>{
+      this.setState(store.getState());
+    });
   }
 
   onAddStarted() {
@@ -31,20 +26,34 @@ class Todo extends React.Component {
 
   onDone(todo){
     console.log('todo was completed: ', todo.task);
-    const filterTodos = 
-        this.state.todos.filter((filterTodo)=>{
-            return filterTodo !== todo;
+    store.dispatch({
+        type: 'DONE_TODO',
+        todo,
     });
-    this.setState({ todos: filterTodos});
+    // const filterTodos = 
+    //     this.state.todos.filter((filterTodo)=>{
+    //         return filterTodo !== todo;
+    // });
+    // this.setState({ todos: filterTodos});
   }
 
   onAdd(task){
     console.log('a task was added: ', task);
-    this.state.todos.push({
-      task: task,
+    // this.state.todos.push({
+    //   task: task,
+    // });
+    // this.setState({todos: this.state.todos}),
+    store.dispatch({
+      type: 'ADD_TODO',
+      task,
     });
-    this.setState({todos: this.state.todos}),
     this.nav.pop();
+  }
+
+  onToggle(){
+    store.dispatch({
+        type: 'TOGGLE_STATE',
+    });
   }
 
   renderScene(route, nav) {
@@ -59,8 +68,10 @@ class Todo extends React.Component {
       default:
         return (
           <TaskList
+            filter={this.state.filter}
             onAddStarted={this.onAddStarted.bind(this)}
             onDone={this.onDone.bind(this)}
+            onToggle={this.onToggle.bind(this)}
             todos={this.state.todos}
           />
         );
